@@ -1,0 +1,15 @@
+{
+  "name": "com.renkoff.extended-button",
+  "version": "1.0.0",
+  "displayName": "Extended Button",
+  "description": "This is a simple package that extends the capabilities of the original Button",
+  "unity": "2019.1",
+  "dependencies": {
+    "com.[company-name].some-package": "1.0.0",
+    "com.[company-name].other-package": "2.0.0"
+  },
+  "author": {
+    "name": "Alexey Renkoff Kucherenko",
+    "email": "lex.renkoff@gmail.com"
+  }
+}
