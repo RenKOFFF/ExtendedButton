@@ -1,6 +1,6 @@
 {
   "name": "com.renkoff.extended-button",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Extended Button",
   "description": "This is a simple package that extends the capabilities of the original Button",
   "unity": "2019.1",

@@ -1,7 +1,7 @@
 # Extended Button
  This is a simple Unity package that extends the capabilities of the original Button
 
-![example](https://ibb.co/VLWWSF6)
+![example](https://i.postimg.cc/PJCH1wMg/Unity-MWYa-DIh-Xv-G.png)
 
 ## Dependencies
 - [DOTween](https://dotween.demigiant.com/documentation.php)
@@ -24,10 +24,12 @@ https://github.com/RenKOFFF/ExtendedButton.git
       - ImageSize,
       - ImageSprite,
       - TextColor,
-      - TextSize 
-   ##### Transitions can be combined with each other in any desired way
+      - TextSize
+
+Transitions can be combined with each other in any desired way
 
 
 ## Other Information
 - The Transition field has been replaced with Transitions and now the original field is not used and is hidden from the editor as unnecessary.
-- Navigation block is cut out and not used
+- Navigation block is cut out and not used.
+- If you use a TextColor transition, the component will automatically assign a white color to the TextMeshPro element. Be careful.

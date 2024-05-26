@@ -82,6 +82,9 @@ namespace ExtendedButton.Scripts
             TextElement ??= GetComponentInChildren<TextMeshProUGUI>();
             image ??= GetComponentInChildren<Image>();
 
+            if (Transitions.HasFlag(ExtendedButtonTransitions.TextColor))
+                TextElement.color = Color.white;
+
             var navigationTemp = navigation;
             navigationTemp.mode = Navigation.Mode.None;
             navigation = navigationTemp;
@@ -169,7 +172,7 @@ namespace ExtendedButton.Scripts
             TextElement.DOKill();
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageColor))
-                image.DOColor(imageColor * _imageColors.colorMultiplier, ImageColors.fadeDuration);
+                StartColorTween(image, imageColor * _imageColors.colorMultiplier, ImageColors.fadeDuration, instant);
             
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageSize))
                 image.transform.DOScale(imageSize, ImageSizes.FadeDuration);
@@ -178,10 +181,26 @@ namespace ExtendedButton.Scripts
                 image.overrideSprite = transitionSprite;
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.TextColor))
-                TextElement.DOColor(textElementColor * _textElementColors.colorMultiplier, TextElementColors.fadeDuration);
+                StartColorTextTween(TextElement, textElementColor * _textElementColors.colorMultiplier, TextElementColors.fadeDuration, instant);
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.TextSize))
                 TextElement.transform.DOScale(textElementSize, TextElementSizes.FadeDuration);
+        }
+
+        private void StartColorTween(Graphic graphic, Color targetColor, float duration, bool instant)
+        {
+            if (graphic == null)
+                return;
+
+            graphic.CrossFadeColor(targetColor, instant ? 0f : duration, true, true);
+        }
+
+        private void StartColorTextTween(TextMeshProUGUI textElement, Color targetColor, float duration, bool instant)
+        {
+            if (textElement == null)
+                return;
+
+            textElement.CrossFadeColor(targetColor, instant ? 0f : duration, true, true);
         }
     }
 }
