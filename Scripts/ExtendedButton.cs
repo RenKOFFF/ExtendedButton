@@ -169,7 +169,9 @@ namespace ExtendedButton.Scripts
             }
 
             image.DOKill();
-            TextElement.DOKill();
+            
+            //TODO: it might be worth adding someone to check if the text element is null in the editor. 
+            if (TextElement != null) TextElement.DOKill(); 
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageColor))
                 StartColorTween(image, imageColor * _imageColors.colorMultiplier, ImageColors.fadeDuration, instant);
