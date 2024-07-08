@@ -98,6 +98,12 @@ namespace ExtendedButton.Scripts
             transition = Transition.None;
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            DestroyAnimationTween();
+        }
+
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
             if (!gameObject.activeInHierarchy)
@@ -168,16 +174,13 @@ namespace ExtendedButton.Scripts
                     break;
             }
 
-            image.DOKill();
-            
-            //TODO: it might be worth adding someone to check if the text element is null in the editor. 
-            if (TextElement != null) TextElement.DOKill(); 
+            DestroyAnimationTween();
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageColor))
                 StartColorTween(image, imageColor * _imageColors.colorMultiplier, ImageColors.fadeDuration, instant);
             
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageSize))
-                image.transform.DOScale(imageSize, ImageSizes.FadeDuration);
+                image.transform.DOScale(imageSize, ImageSizes.FadeDuration).SetId(gameObject);
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageSprite))
                 image.overrideSprite = transitionSprite;
@@ -186,7 +189,12 @@ namespace ExtendedButton.Scripts
                 StartColorTextTween(TextElement, textElementColor * _textElementColors.colorMultiplier, TextElementColors.fadeDuration, instant);
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.TextSize))
-                TextElement.transform.DOScale(textElementSize, TextElementSizes.FadeDuration);
+                TextElement.transform.DOScale(textElementSize, TextElementSizes.FadeDuration).SetId(gameObject);
+        }
+
+        private void DestroyAnimationTween()
+        {
+            DOTween.Kill(gameObject);
         }
 
         private void StartColorTween(Graphic graphic, Color targetColor, float duration, bool instant)
