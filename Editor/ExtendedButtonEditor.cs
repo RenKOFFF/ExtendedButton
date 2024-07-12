@@ -1,12 +1,14 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+
+using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ExtendedButton.Scripts.Editor
+namespace ExtendedButton.Editor
 {
-    [CustomEditor(typeof(ExtendedButton), true)]
+    [CustomEditor(typeof(Runtime.ExtendedButton), true)]
     [CanEditMultipleObjects]
     public sealed class ExtendedButtonEditor : ButtonEditor
     {
@@ -58,11 +60,11 @@ namespace ExtendedButton.Scripts.Editor
             
             var transitions = GetButtonTransitions(_transitions);
 
-            _editImageColor.value = transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageColor);
-            _editImageSize.value = transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageSize);
-            _editImageSprite.value = transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageSprite);
-            _editTextColor.value = transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.TextColor);
-            _editTextSize.value = transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.TextSize);
+            _editImageColor.value = transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageColor);
+            _editImageSize.value = transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageSize);
+            _editImageSprite.value = transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageSprite);
+            _editTextColor.value = transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.TextColor);
+            _editTextSize.value = transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.TextSize);
 
             _editImageColor.valueChanged.AddListener(Repaint);
             _editImageSize.valueChanged.AddListener(Repaint);
@@ -84,9 +86,9 @@ namespace ExtendedButton.Scripts.Editor
             _editTextSize.valueChanged.RemoveListener(Repaint);
         }
 
-        private static ExtendedButton.ExtendedButtonTransitions GetButtonTransitions(SerializedProperty buttonTransitions)
+        private static Runtime.ExtendedButton.ExtendedButtonTransitions GetButtonTransitions(SerializedProperty buttonTransitions)
         {
-            return (ExtendedButton.ExtendedButtonTransitions)buttonTransitions.enumValueFlag;
+            return (Runtime.ExtendedButton.ExtendedButtonTransitions)buttonTransitions.enumValueFlag;
         }
 
         public override void OnInspectorGUI()
@@ -99,13 +101,13 @@ namespace ExtendedButton.Scripts.Editor
             
             var graphic = _targetGraphicProperty.objectReferenceValue as Graphic;
             if (graphic == null)
-                graphic = (target as ExtendedButton).GetComponent<Graphic>();
+                graphic = (target as Runtime.ExtendedButton).GetComponent<Graphic>();
 
-            _editImageColor.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageColor);
-            _editImageSize.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageSize);
-            _editImageSprite.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageSprite);
-            _editTextColor.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.TextColor);
-            _editTextSize.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.TextSize);
+            _editImageColor.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageColor);
+            _editImageSize.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageSize);
+            _editImageSprite.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageSprite);
+            _editTextColor.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.TextColor);
+            _editTextSize.target = !_transitions.hasMultipleDifferentValues && transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.TextSize);
 
             EditorGUILayout.PropertyField(_transitions);
             EditorGUILayout.Space();
@@ -130,11 +132,11 @@ namespace ExtendedButton.Scripts.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawImageLabel(ExtendedButton.ExtendedButtonTransitions transitions, Graphic graphic)
+        private void DrawImageLabel(Runtime.ExtendedButton.ExtendedButtonTransitions transitions, Graphic graphic)
         {
-            if (transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageColor) ||
-                transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageSize) ||
-                transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.ImageSprite))
+            if (transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageColor) ||
+                transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageSize) ||
+                transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.ImageSprite))
             {
                 EditorGUILayout.LabelField("Image transitions", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(_targetGraphicProperty);
@@ -182,10 +184,10 @@ namespace ExtendedButton.Scripts.Editor
             EditorGUILayout.EndFadeGroup();
         }
 
-        private void DrawTextLabel(ExtendedButton.ExtendedButtonTransitions transitions)
+        private void DrawTextLabel(Runtime.ExtendedButton.ExtendedButtonTransitions transitions)
         {
-            if (transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.TextSize) ||
-                transitions.HasFlag(ExtendedButton.ExtendedButtonTransitions.TextColor))
+            if (transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.TextSize) ||
+                transitions.HasFlag(Runtime.ExtendedButton.ExtendedButtonTransitions.TextColor))
             {
                 EditorGUILayout.Space();
 
@@ -242,3 +244,5 @@ namespace ExtendedButton.Scripts.Editor
         }
     }
 }
+
+#endif

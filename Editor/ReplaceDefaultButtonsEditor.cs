@@ -1,8 +1,10 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ExtendedButton.Scripts.Editor
+namespace ExtendedButton.Editor
 {
     public class ReplaceDefaultButtonsEditor : UnityEditor.Editor
     {
@@ -13,18 +15,18 @@ namespace ExtendedButton.Scripts.Editor
         {
             var button = (Button)command.context;
             Debug.Log($"The button named {button.name} was replaced to " +
-                      $"{nameof(ExtendedButton)} from Context Menu.");
+                      $"{nameof(Runtime.ExtendedButton)} from Context Menu.");
 
             if (!_script)
             {
                 var tempObject = new GameObject("TempObject");
-                var instanceScript = tempObject.AddComponent<ExtendedButton>();
+                var instanceScript = tempObject.AddComponent<Runtime.ExtendedButton>();
                 _script = MonoScript.FromMonoBehaviour(instanceScript);
                 DestroyImmediate(tempObject);
             }
 
             var go = ((Component)command.context).gameObject;
-            Undo.RegisterCompleteObjectUndo(go, $"Replace Button as {nameof(ExtendedButton)} in {go.name}");
+            Undo.RegisterCompleteObjectUndo(go, $"Replace Button as {nameof(Runtime.ExtendedButton)} in {go.name}");
             
             var so = new SerializedObject(command.context);
             var scriptProperty = so.FindProperty("m_Script");
@@ -40,3 +42,5 @@ namespace ExtendedButton.Scripts.Editor
         }
     }
 }
+
+#endif

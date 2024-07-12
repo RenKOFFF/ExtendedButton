@@ -1,10 +1,12 @@
-﻿using ExtendedButton.Scripts.Blocks;
+﻿#if UNITY_EDITOR
+
+using ExtendedButton.Runtime.Blocks;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace ExtendedButton.Scripts.Editor.Blocks
+namespace ExtendedButton.Editor.Blocks
 {
     [CustomPropertyDrawer(typeof(SizeBlock), true)]
     public class SizeBlockDrawer : PropertyDrawer
@@ -70,3 +72,5 @@ namespace ExtendedButton.Scripts.Editor.Blocks
         }
     }
 }
+
+#endif

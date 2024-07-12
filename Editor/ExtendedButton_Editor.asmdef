@@ -1,0 +1,16 @@
+{
+    "name": "ExtendedButton_Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ac8852bccef9042428bf4b5f90be3bd2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

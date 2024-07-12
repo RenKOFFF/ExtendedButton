@@ -1,11 +1,11 @@
 ﻿using System;
 using DG.Tweening;
-using ExtendedButton.Scripts.Blocks;
+using ExtendedButton.Runtime.Blocks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ExtendedButton.Scripts
+namespace ExtendedButton.Runtime
 {
     [AddComponentMenu("UI/ExtendedButton", 30)]
     public class ExtendedButton : Button
@@ -74,7 +74,8 @@ namespace ExtendedButton.Scripts
             TextColor = 1 << 3,
             TextSize = 1 << 4
         }
-        
+
+#if UNITY_EDITOR
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -91,6 +92,7 @@ namespace ExtendedButton.Scripts
             
             transition = Transition.None;
         }
+#endif
 
         protected override void Awake()
         {

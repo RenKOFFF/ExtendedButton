@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ExtendedButton.Scripts.Blocks
+namespace ExtendedButton.Runtime.Blocks
 {
     [Serializable]
     public struct SizeBlock : IEquatable<SizeBlock>
