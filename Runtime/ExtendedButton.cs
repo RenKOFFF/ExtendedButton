@@ -19,7 +19,9 @@ namespace ExtendedButton.Runtime
         [SerializeField] private TextMeshProUGUI _textElement;
         [SerializeField] private ColorBlock _textElementColors = ColorBlock.defaultColorBlock;
         [SerializeField] private SizeBlock _textElementSizes = SizeBlock.DefaultSizeBlock;
-
+        
+        private Vector2 _baseScale;
+        
         public ExtendedButtonTransitions Transitions
         {
             get => _transitions;
@@ -98,6 +100,7 @@ namespace ExtendedButton.Runtime
         {
             base.Awake();
             transition = Transition.None;
+            _baseScale = transform.localScale;
         }
 
         protected override void OnDestroy()
@@ -182,7 +185,7 @@ namespace ExtendedButton.Runtime
                 StartColorTween(image, imageColor * _imageColors.colorMultiplier, ImageColors.fadeDuration, instant);
             
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageSize))
-                image.transform.DOScale(imageSize, ImageSizes.FadeDuration).SetId(gameObject);
+                image.transform.DOScale(_baseScale * imageSize, ImageSizes.FadeDuration).SetId(gameObject);
 
             if (Transitions.HasFlag(ExtendedButtonTransitions.ImageSprite))
                 image.overrideSprite = transitionSprite;
